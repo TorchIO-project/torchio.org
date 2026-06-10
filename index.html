@@ -164,7 +164,7 @@ subjects = [
 
 <span class="tok-c"># Composable augmentation pipeline</span>
 transform = tio.<span class="tok-f">Compose</span>([
-    tio.<span class="tok-f">Flip</span>(),
+    tio.<span class="tok-f">Flip</span>(flip_probability=0.5),
     tio.<span class="tok-f">Affine</span>(degrees=(-15, 15)),
     tio.<span class="tok-f">Standardize</span>(),
     tio.<span class="tok-f">Noise</span>(std=(0, 0.1)),
