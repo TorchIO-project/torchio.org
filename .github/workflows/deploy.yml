@@ -1,12 +1,3 @@
-# Builds nothing (this is a static site) and deploys it to GitHub Pages.
-#
-# One-time setup in the repository on GitHub:
-#   1. Settings > Pages > Build and deployment > Source = "GitHub Actions".
-#   2. Settings > Pages > Custom domain = "torchio.org" (writes/keeps the CNAME
-#      file). Point the apex DNS at GitHub Pages (A/AAAA records or a
-#      CNAME-flattened record to torchio-project.github.io).
-#   3. Enable "Enforce HTTPS" once the certificate is issued.
-
 name: Deploy site
 
 on:

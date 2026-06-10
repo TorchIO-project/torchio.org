@@ -44,22 +44,6 @@ python -m http.server 8000
 # then visit http://localhost:8000
 ```
 
-## Deployment
-
-Every push to `main` triggers `.github/workflows/deploy.yml`, which publishes
-the site to GitHub Pages.
-
-One-time setup on GitHub:
-
-1. **Settings → Pages → Source** = _GitHub Actions_.
-2. **Settings → Pages → Custom domain** = `torchio.org`.
-3. Point the apex DNS at GitHub Pages (A/AAAA records, or a CNAME-flattened
-   record to `torchio-project.github.io`).
-4. Enable **Enforce HTTPS** once the certificate is issued.
-
-The `docs.torchio.org` subdomain is unaffected; it continues to be served from
-the `gh-pages` branch of the main `torchio` repository.
-
 ## License
 
 Apache-2.0, matching the TorchIO library.
