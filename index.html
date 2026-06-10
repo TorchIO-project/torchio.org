@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TorchIO: Medical imaging for AI in PyTorch</title>
+    <meta
+      name="description"
+      content="TorchIO is an open-source Python library for efficient loading, preprocessing, augmentation, and patch-based sampling of 3D medical images in AI, built on top of PyTorch."
+    />
+    <meta name="theme-color" content="#812ce5" />
+    <link rel="canonical" href="https://torchio.org/" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://torchio.org/" />
+    <meta
+      property="og:title"
+      content="TorchIO: Medical imaging for AI in PyTorch"
+    />
+    <meta
+      property="og:description"
+      content="Efficient loading, preprocessing, augmentation, and patch-based sampling of 3D medical images, built on top of PyTorch."
+    />
+    <meta
+      property="og:image"
+      content="https://torchio.org/assets/img/torchio-logo.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="TorchIO: Medical imaging for AI in PyTorch"
+    />
+    <meta
+      name="twitter:description"
+      content="Efficient loading, preprocessing, augmentation, and patch-based sampling of 3D medical images, built on top of PyTorch."
+    />
+    <meta
+      name="twitter:image"
+      content="https://torchio.org/assets/img/torchio-logo.png"
+    />
+
+    <link rel="icon" href="assets/img/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="assets/img/torchio-logo.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">
+          <img src="assets/img/torchio-logo.png" alt="TorchIO logo" />
+          TorchIO
+        </a>
+        <nav class="nav-links">
+          <a href="#features" class="hide-sm">Features</a>
+          <a href="#augmentations" class="hide-sm">Augmentations</a>
+          <a href="https://docs.torchio.org">Docs</a>
+          <a href="https://github.com/TorchIO-project/torchio" class="hide-sm"
+            >GitHub</a
+          >
+          <a
+            class="btn btn-primary nav-cta"
+            href="https://docs.torchio.org/get-started/installation/"
+            >Get started</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1>
+            Medical imaging for <span class="accent">AI</span>.
+          </h1>
+          <p class="hero-lede">
+            An open-source Python library for efficient loading, preprocessing,
+            augmentation, and patch-based sampling of 3D medical images,
+            built on top of PyTorch.
+          </p>
+
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="https://docs.torchio.org/get-started/quickstart/"
+            >
+              Get started
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+            <a
+              class="btn btn-ghost"
+              href="https://github.com/TorchIO-project/torchio"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M12 .5A12 12 0 0 0 0 12.6a12 12 0 0 0 8.2 11.5c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.8 0-.7 0-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.9 2.8 1.4 3.5 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.4-5.5-6 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 5 18.3 5.3 18.3 5.3c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 24 12.6 12 12 0 0 0 12 .5Z"
+                />
+              </svg>
+              Star on GitHub
+            </a>
+          </div>
+
+          <div class="install" aria-label="Install command">
+            <code id="install-cmd"
+              ><span class="prompt">$</span> pip install torchio</code
+            >
+            <button
+              class="copy-btn"
+              type="button"
+              aria-label="Copy install command"
+              data-copy="pip install torchio"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hero code card -->
+        <div class="code-card reveal">
+          <div class="code-bar">
+            <span class="dotmac r"></span><span class="dotmac y"></span
+            ><span class="dotmac g"></span>
+          </div>
+          <pre><code><span class="tok-k">import</span> torchio <span class="tok-k">as</span> tio
+
+dirs = [<span class="tok-s">"sub-01"</span>, <span class="tok-s">"sub-02"</span>, <span class="tok-s">"sub-03"</span>, <span class="tok-s">"sub-04"</span>]
+
+<span class="tok-c"># Lazy: only headers are read until .data is accessed</span>
+subjects = [
+    tio.<span class="tok-f">Subject</span>(
+        t1=tio.<span class="tok-f">ScalarImage</span>(<span class="tok-s">f"{d}/t1.nii.gz"</span>),
+        seg=tio.<span class="tok-f">LabelMap</span>(<span class="tok-s">f"{d}/seg.nii.gz"</span>),
+    )
+    <span class="tok-k">for</span> d <span class="tok-k">in</span> dirs
+]
+
+<span class="tok-c"># Composable augmentation pipeline</span>
+transform = tio.<span class="tok-f">Compose</span>([
+    tio.<span class="tok-f">Flip</span>(flip_probability=0.5),
+    tio.<span class="tok-f">Affine</span>(degrees=(-15, 15)),
+    tio.<span class="tok-f">Standardize</span>(),
+    tio.<span class="tok-f">Noise</span>(std=(0, 0.1)),
+])
+
+<span class="tok-c"># Augment a whole batch on the GPU in one call</span>
+batch = tio.SubjectsBatch.<span class="tok-f">from_subjects</span>(subjects).to(<span class="tok-s">"cuda"</span>)
+augmented = <span class="tok-f">transform</span>(batch)</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ecosystem strip -->
+    <div class="strip">
+      <div class="container">
+        <span class="label">Plays well with</span>
+        <div class="names">
+          <a href="https://pytorch.org">PyTorch</a>
+          <a href="https://project-monai.github.io/">MONAI</a>
+          <a href="https://lightning.ai">PyTorch Lightning</a>
+          <a href="https://simpleitk.org">SimpleITK</a>
+          <a href="https://nipy.org/nibabel/">NiBabel</a>
+          <a href="https://zarr.dev">Zarr</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Why TorchIO</span>
+          <h2>Everything you need for medical image pipelines</h2>
+          <p>
+            Purpose-built for volumetric data, from a single scan to datasets
+            far larger than memory.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="card reveal">
+            <span class="icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M4 4h16v16H4z" />
+                <path d="M4 9h16M9 4v16" />
+              </svg>
+            </span>
+            <h3>Preprocessing &amp; augmentation</h3>
+            <p>
+              Spatial and intensity transforms designed for 3D medical images,
+              fully composable into reproducible pipelines.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <span class="icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+              </svg>
+            </span>
+            <h3>Patch-based pipelines</h3>
+            <p>
+              Queues, samplers, and aggregators for training and inference on
+              volumes that are too large to fit in memory.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <span class="icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 2v20M2 12h20" />
+                <circle cx="12" cy="12" r="9" />
+              </svg>
+            </span>
+            <h3>Lazy loading at scale</h3>
+            <p>
+              Read only the headers, or just the patch you need, from local
+              files, remote URLs, cloud storage, or Zarr stores.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <span class="icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z" />
+                <path d="M12 6v6l4 2" />
+              </svg>
+            </span>
+            <h3>Built on PyTorch</h3>
+            <p>
+              Drop-in with the PyTorch <code>DataLoader</code>, and a natural fit
+              alongside MONAI and PyTorch Lightning.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <span class="icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m9 12 2 2 4-4" />
+                <path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6l-8-3Z" />
+              </svg>
+            </span>
+            <h3>Reproducible &amp; GPU-ready</h3>
+            <p>
+              Deterministic, serializable transforms that run on CPU, CUDA, or
+              Apple&nbsp;MPS, and batch across subjects.
+            </p>
+          </article>
+
+          <article class="card reveal">
+            <span class="icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" />
+              </svg>
+            </span>
+            <h3>Open source &amp; cited</h3>
+            <p>
+              Apache-2.0 licensed, peer-reviewed, and developed in the open by a
+              friendly community of contributors.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Augmentations showcase -->
+    <section class="section" id="augmentations">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Augmentations</span>
+          <h2>Realistic MRI artifacts, one transform away</h2>
+          <p>
+            TorchIO ships physics-based augmentations that reproduce real MRI
+            artifacts. Pick one to see it applied to a brain scan.
+          </p>
+        </div>
+
+        <div class="aug reveal">
+          <div class="aug-viewer">
+            <video
+              id="aug-video"
+              class="aug-video"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+              poster="assets/video/motion.jpg"
+            >
+              <source
+                id="aug-source"
+                src="assets/video/motion.mp4"
+                type="video/mp4"
+              />
+            </video>
+            <span class="aug-flip">original&nbsp;&#8644;&nbsp;augmented</span>
+          </div>
+
+          <div class="aug-panel">
+            <div class="aug-tabs" role="tablist" aria-label="MRI augmentations">
+              <button
+                class="aug-tab is-active"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                data-aug="motion"
+              >
+                Motion
+              </button>
+              <button
+                class="aug-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-aug="ghosting"
+              >
+                Ghosting
+              </button>
+              <button
+                class="aug-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-aug="spike"
+              >
+                Spike
+              </button>
+              <button
+                class="aug-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-aug="bias"
+              >
+                Bias field
+              </button>
+              <button
+                class="aug-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-aug="noise"
+              >
+                Noise
+              </button>
+              <button
+                class="aug-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-aug="elastic"
+              >
+                Elastic
+              </button>
+            </div>
+
+            <code class="aug-code" id="aug-code">tio.Motion()</code>
+            <p class="aug-desc" id="aug-desc">
+              Simulates patient motion during acquisition, adding blurring and
+              ghosting from inconsistent k-space lines.
+            </p>
+            <a class="aug-link" href="https://docs.torchio.org/concepts/transforms/">
+              Learn how transforms work
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Example callout -->
+    <section class="section" id="example" style="padding-top: 0">
+      <div class="container">
+        <div class="cta reveal">
+          <span class="eyebrow">Pipeline</span>
+          <h2>From scan to batch in a few lines</h2>
+          <p>
+            Compose your transforms once, then augment whole batches of subjects
+            on the GPU in a single call.
+          </p>
+
+          <div class="pipeline">
+            <div class="pipe-step">
+              <span class="pipe-num">1</span>
+              <span class="pipe-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m12 2 9 5-9 5-9-5 9-5Z" />
+                  <path d="m3 12 9 5 9-5" />
+                  <path d="m3 17 9 5 9-5" />
+                </svg>
+              </span>
+              <span class="pipe-title">Load subjects</span>
+              <span class="pipe-sub">Lazily, from files or the cloud</span>
+            </div>
+
+            <span class="pipe-arrow" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </span>
+
+            <div class="pipe-step pipe-step--wide">
+              <span class="pipe-num">2</span>
+              <span class="pipe-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M13 3l2.2 5.8L21 11l-5.8 2.2L13 19l-2.2-5.8L5 11l5.8-2.2L13 3Z"
+                  />
+                  <path d="M5 3v3M3.5 4.5h3M6 18v3M4.5 19.5h3" />
+                </svg>
+              </span>
+              <span class="pipe-title">Compose transforms</span>
+              <span class="pipe-chips">
+                <span>Flip</span>
+                <span>Affine</span>
+                <span>Standardize</span>
+                <span>Noise</span>
+              </span>
+            </div>
+
+            <span class="pipe-arrow" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </span>
+
+            <div class="pipe-step">
+              <span class="pipe-num">3</span>
+              <span class="pipe-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="4" y="4" width="16" height="16" rx="2" />
+                  <rect x="9" y="9" width="6" height="6" />
+                  <path
+                    d="M9 1.5v2.5M15 1.5v2.5M9 20v2.5M15 20v2.5M20 9h2.5M20 15h2.5M1.5 9H4M1.5 15H4"
+                  />
+                </svg>
+              </span>
+              <span class="pipe-title">Augment the batch</span>
+              <span class="pipe-sub">One call, on CPU or GPU</span>
+            </div>
+          </div>
+
+          <div class="cta-actions">
+            <a
+              class="btn btn-primary"
+              href="https://docs.torchio.org/get-started/quickstart/"
+              >Read the quickstart</a
+            >
+            <a
+              class="btn btn-ghost"
+              href="https://docs.torchio.org/tutorials/first-pipeline/"
+              >Browse tutorials</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="brand" href="/">
+              <img src="assets/img/torchio-logo.png" alt="TorchIO logo" />
+              TorchIO
+            </a>
+            <p>
+              Tools for medical image processing with PyTorch. Free and
+              open-source under the Apache-2.0 license.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Docs</h4>
+            <a href="https://docs.torchio.org/get-started/installation/"
+              >Installation</a
+            >
+            <a href="https://docs.torchio.org/get-started/quickstart/"
+              >Quickstart</a
+            >
+            <a href="https://docs.torchio.org/tutorials/first-pipeline/"
+              >Tutorials</a
+            >
+            <a href="https://docs.torchio.org/reference/">API reference</a>
+          </div>
+
+          <div class="footer-col">
+            <h4>Project</h4>
+            <a href="https://github.com/TorchIO-project/torchio">GitHub</a>
+            <a href="https://pypi.org/project/torchio/">PyPI</a>
+            <a
+              href="https://github.com/TorchIO-project/torchio/blob/main/LICENSE"
+              >License</a
+            >
+            <a
+              href="https://github.com/TorchIO-project/torchio/blob/main/CONTRIBUTING.rst"
+              >Contributing</a
+            >
+          </div>
+
+          <div class="footer-col">
+            <h4>Community</h4>
+            <a href="https://github.com/TorchIO-project/torchio/discussions"
+              >Discussions</a
+            >
+            <a href="https://github.com/TorchIO-project/torchio/issues"
+              >Issues</a
+            >
+            <a href="https://doi.org/10.1016/j.cmpb.2021.106236">Paper</a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>&copy; <span id="year"></span> TorchIO contributors.</span>
+          <span>
+            If you use TorchIO, please
+            <a href="https://doi.org/10.1016/j.cmpb.2021.106236">cite the paper</a>.
+          </span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js" defer></script>
+  </body>
+</html>

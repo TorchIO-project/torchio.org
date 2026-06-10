@@ -1,0 +1,11 @@
+[tools]
+uv = "latest"
+
+[env]
+# Defaults for the dev server; override inline, e.g. `PORT=3000 mise run serve`.
+HOST = "{{ env.HOST | default(value='localhost') }}"
+PORT = "{{ env.PORT | default(value='8000') }}"
+
+[tasks.serve]
+description = "Serve the site locally with live reload"
+run = "uvx --from livereload livereload --host \"$HOST\" --port \"$PORT\" -o 1 -t '{{config_root}}' '{{config_root}}'"
