@@ -81,13 +81,30 @@ if (augSlider && augBefore && augAfter && augRange) {
   };
 
   // Mouse hovers to reveal; touch drags to reveal (pointermove fires while
-  // touching). No click needed.
+  // touching). No click needed. Capturing the pointer on press keeps a
+  // click-drag (or touch drag) tracking even if it strays outside the slider.
   const update = (event) => {
     const rect = augSlider.getBoundingClientRect();
     setPos(((event.clientX - rect.left) / rect.width) * 100);
   };
   augSlider.addEventListener("pointermove", update);
-  augSlider.addEventListener("pointerdown", update);
+  augSlider.addEventListener("pointerdown", (event) => {
+    try {
+      augSlider.setPointerCapture(event.pointerId);
+    } catch {
+      /* setPointerCapture unsupported or pointer gone; ignore */
+    }
+    update(event);
+  });
+  const release = (event) => {
+    try {
+      augSlider.releasePointerCapture(event.pointerId);
+    } catch {
+      /* nothing to release; ignore */
+    }
+  };
+  augSlider.addEventListener("pointerup", release);
+  augSlider.addEventListener("pointercancel", release);
   augRange.addEventListener("input", () => setPos(Number(augRange.value)));
 
   augTabs.forEach((tab) => {
