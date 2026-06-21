@@ -62,13 +62,13 @@
         <nav class="nav-links">
           <a href="#features" class="hide-sm">Features</a>
           <a href="#augmentations" class="hide-sm">Augmentations</a>
-          <a href="https://docs.torchio.org">Docs</a>
+          <a href="https://docs.torchio.org/dev/">Docs</a>
           <a href="https://github.com/TorchIO-project/torchio" class="hide-sm"
             >GitHub</a
           >
           <a
             class="btn btn-primary nav-cta"
-            href="https://docs.torchio.org/get-started/installation/"
+            href="https://docs.torchio.org/dev/get-started/installation/"
             >Get started</a
           >
         </nav>
@@ -91,7 +91,7 @@
           <div class="hero-actions">
             <a
               class="btn btn-primary"
-              href="https://docs.torchio.org/get-started/quickstart/"
+              href="https://docs.torchio.org/dev/get-started/quickstart/"
             >
               Get started
               <svg
@@ -343,29 +343,50 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
           <h2>Realistic MRI artifacts, one transform away</h2>
           <p>
             TorchIO ships physics-based augmentations that reproduce real MRI
-            artifacts. Pick one to see it applied to a brain scan.
+            artifacts. Pick one, then move the slider to compare the original
+            scan with the augmented result.
           </p>
         </div>
 
         <div class="aug reveal">
-          <div class="aug-viewer">
-            <video
-              id="aug-video"
-              class="aug-video"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="auto"
-              poster="assets/video/motion.jpg"
-            >
-              <source
-                id="aug-source"
-                src="assets/video/motion.mp4"
-                type="video/mp4"
-              />
-            </video>
-            <span class="aug-flip">original&nbsp;&#8644;&nbsp;augmented</span>
+          <div class="aug-slider" id="aug-slider" style="--pos: 50%">
+            <img
+              class="aug-img aug-after"
+              id="aug-after"
+              src="assets/aug/motion_after.webp"
+              alt="Brain scan with the augmentation applied"
+            />
+            <img
+              class="aug-img aug-before"
+              id="aug-before"
+              src="assets/aug/motion_before.webp"
+              alt="Original brain scan"
+            />
+            <span class="aug-tag aug-tag--before">Original</span>
+            <span class="aug-tag aug-tag--after">Augmented</span>
+            <div class="aug-divider" aria-hidden="true">
+              <span class="aug-handle">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M9 7l-5 5 5 5M15 7l5 5-5 5" />
+                </svg>
+              </span>
+            </div>
+            <input
+              class="aug-range"
+              id="aug-range"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              aria-label="Reveal the original versus the augmented scan"
+            />
           </div>
 
           <div class="aug-panel">
@@ -431,7 +452,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
               Simulates patient motion during acquisition, adding blurring and
               ghosting from inconsistent k-space lines.
             </p>
-            <a class="aug-link" href="https://docs.torchio.org/concepts/transforms/">
+            <a class="aug-link" href="https://docs.torchio.org/dev/concepts/transforms/">
               Learn how transforms work
               <svg
                 viewBox="0 0 24 24"
@@ -559,12 +580,12 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
           <div class="cta-actions">
             <a
               class="btn btn-primary"
-              href="https://docs.torchio.org/get-started/quickstart/"
+              href="https://docs.torchio.org/dev/get-started/quickstart/"
               >Read the quickstart</a
             >
             <a
               class="btn btn-ghost"
-              href="https://docs.torchio.org/tutorials/first-pipeline/"
+              href="https://docs.torchio.org/dev/tutorials/first-pipeline/"
               >Browse tutorials</a
             >
           </div>
@@ -589,16 +610,16 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
 
           <div class="footer-col">
             <h4>Docs</h4>
-            <a href="https://docs.torchio.org/get-started/installation/"
+            <a href="https://docs.torchio.org/dev/get-started/installation/"
               >Installation</a
             >
-            <a href="https://docs.torchio.org/get-started/quickstart/"
+            <a href="https://docs.torchio.org/dev/get-started/quickstart/"
               >Quickstart</a
             >
-            <a href="https://docs.torchio.org/tutorials/first-pipeline/"
+            <a href="https://docs.torchio.org/dev/tutorials/first-pipeline/"
               >Tutorials</a
             >
-            <a href="https://docs.torchio.org/reference/">API reference</a>
+            <a href="https://docs.torchio.org/dev/reference/image/">API reference</a>
           </div>
 
           <div class="footer-col">
