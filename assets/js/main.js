@@ -65,40 +65,65 @@ const augData = {
   },
 };
 
-const augVideo = document.getElementById("aug-video");
-const augSource = document.getElementById("aug-source");
+const augSlider = document.getElementById("aug-slider");
+const augBefore = document.getElementById("aug-before");
+const augAfter = document.getElementById("aug-after");
+const augRange = document.getElementById("aug-range");
 const augCode = document.getElementById("aug-code");
 const augDesc = document.getElementById("aug-desc");
 const augTabs = document.querySelectorAll(".aug-tab");
-const prefersReducedMotion = window.matchMedia(
-  "(prefers-reduced-motion: reduce)",
-).matches;
 
-if (augVideo && prefersReducedMotion) {
-  augVideo.removeAttribute("autoplay");
-  augVideo.setAttribute("controls", "");
-}
+if (augSlider && augBefore && augAfter && augRange) {
+  const setPos = (value) => {
+    const v = Math.max(0, Math.min(100, value));
+    augSlider.style.setProperty("--pos", `${v}%`);
+    augRange.value = String(v);
+  };
 
-augTabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    const key = tab.dataset.aug;
-    const data = augData[key];
-    if (!data || !augVideo) return;
-
-    augTabs.forEach((t) => {
-      const active = t === tab;
-      t.classList.toggle("is-active", active);
-      t.setAttribute("aria-selected", active ? "true" : "false");
-    });
-
-    augCode.textContent = data.code;
-    augDesc.textContent = data.desc;
-    augVideo.poster = `assets/video/${key}.jpg`;
-    augSource.src = `assets/video/${key}.mp4`;
-    augVideo.load();
-    if (!prefersReducedMotion) {
-      const playback = augVideo.play();
-      if (playback && playback.catch) playback.catch(() => {});
+  // Mouse hovers to reveal; touch drags to reveal (pointermove fires while
+  // touching). No click needed. Capturing the pointer on press keeps a
+  // click-drag (or touch drag) tracking even if it strays outside the slider.
+  const update = (event) => {
+    const rect = augSlider.getBoundingClientRect();
+    setPos(((event.clientX - rect.left) / rect.width) * 100);
+  };
+  augSlider.addEventListener("pointermove", update);
+  augSlider.addEventListener("pointerdown", (event) => {
+    try {
+      augSlider.setPointerCapture(event.pointerId);
+    } catch {
+      /* setPointerCapture unsupported or pointer gone; ignore */
     }
+    update(event);
   });
-});
+  const release = (event) => {
+    try {
+      augSlider.releasePointerCapture(event.pointerId);
+    } catch {
+      /* nothing to release; ignore */
+    }
+  };
+  augSlider.addEventListener("pointerup", release);
+  augSlider.addEventListener("pointercancel", release);
+  augRange.addEventListener("input", () => setPos(Number(augRange.value)));
+
+  augTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const key = tab.dataset.aug;
+      const data = augData[key];
+      if (!data) return;
+
+      augTabs.forEach((t) => {
+        const active = t === tab;
+        t.classList.toggle("is-active", active);
+        t.setAttribute("aria-selected", active ? "true" : "false");
+      });
+
+      augCode.textContent = data.code;
+      augDesc.textContent = data.desc;
+      augBefore.src = `assets/aug/${key}_before.webp`;
+      augAfter.src = `assets/aug/${key}_after.webp`;
+      setPos(50);
+    });
+  });
+}
