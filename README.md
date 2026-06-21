@@ -22,7 +22,8 @@ introduces the project and links out to the documentation at
 │   ├── css/styles.css       # styles + light/dark theme
 │   ├── js/main.js           # copy button, scroll reveal, footer year
 │   └── img/                 # logo + favicon
-└── .github/workflows/deploy.yml
+├── scripts/check_site.py     # local structure, asset, and link checks
+└── .github/workflows/        # checks and deployment
 ```
 
 ## Brand
@@ -35,13 +36,23 @@ The palette is derived from the TorchIO logo:
 | Ink     | `#262626` |
 | Gray    | `#BBBBBB` |
 
-## Local preview
+## Local preview and checks
 
 No build step is required. Open `index.html` directly, or serve the folder:
 
 ```bash
-python -m http.server 8000
+mise run serve
 # then visit http://localhost:8000
+```
+
+You can still use any static file server, for example
+`uv run python -m http.server`.
+
+Run local checks before opening a pull request:
+
+```bash
+mise run check
+mise run check:links
 ```
 
 ## License

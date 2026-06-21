@@ -1,19 +1,42 @@
+// @ts-check
+
 // Tiny progressive-enhancement helpers. No dependencies.
 
 // Footer year
+/** @type {HTMLElement | null} */
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // Copy-to-clipboard for the install command
-document.querySelectorAll(".copy-btn").forEach((btn) => {
-  btn.addEventListener("click", async () => {
-    const text = btn.getAttribute("data-copy") || "";
+/** @type {HTMLElement | null} */
+const copyStatus = document.getElementById("copy-status");
+const setCopyStatus = (message) => {
+  if (copyStatus) copyStatus.textContent = message;
+};
+
+document.querySelectorAll(".copy-btn").forEach((buttonEl) => {
+  const button = /** @type {HTMLButtonElement} */ (buttonEl);
+
+  button.addEventListener("click", async () => {
+    const text = button.getAttribute("data-copy") || "";
+    if (!navigator.clipboard) {
+      setCopyStatus("Clipboard unavailable. Select the install command manually.");
+      return;
+    }
+
     try {
       await navigator.clipboard.writeText(text);
-      btn.classList.add("copied");
-      setTimeout(() => btn.classList.remove("copied"), 1500);
-    } catch {
-      /* clipboard unavailable, ignore */
+      button.classList.add("copied");
+      button.setAttribute("aria-label", "Copied install command");
+      setCopyStatus("Install command copied.");
+      setTimeout(() => {
+        button.classList.remove("copied");
+        button.setAttribute("aria-label", "Copy install command");
+        setCopyStatus("");
+      }, 1500);
+    } catch (error) {
+      console.warn("Unable to copy install command.", error);
+      setCopyStatus("Copy failed. Select the install command manually.");
     }
   });
 });
@@ -38,42 +61,84 @@ if ("IntersectionObserver" in window) {
 }
 
 // Interactive MRI augmentations showcase
+/**
+ * @typedef {Object} Augmentation
+ * @property {string} label
+ * @property {string} code
+ * @property {string} desc
+ * @property {string} before
+ * @property {string} after
+ */
+
+/** @type {Record<string, Augmentation>} */
 const augData = {
   motion: {
+    label: "motion",
     code: "tio.Motion()",
     desc: "Simulates patient motion during acquisition, adding blurring and ghosting from inconsistent k-space lines.",
+    before: "assets/aug/motion_before.webp",
+    after: "assets/aug/motion_after.webp",
   },
   ghosting: {
+    label: "ghosting",
     code: "tio.Ghosting()",
     desc: "Reproduces the ghost copies caused by periodic motion such as breathing or pulsatile flow.",
+    before: "assets/aug/ghosting_before.webp",
+    after: "assets/aug/ghosting_after.webp",
   },
   spike: {
+    label: "spike",
     code: "tio.Spike()",
     desc: "Adds herringbone artifacts produced by spikes (outliers) in k-space.",
+    before: "assets/aug/spike_before.webp",
+    after: "assets/aug/spike_after.webp",
   },
   bias: {
+    label: "bias field",
     code: "tio.BiasField()",
     desc: "Applies a smooth, low-frequency intensity inhomogeneity, as caused by MRI coil sensitivity.",
+    before: "assets/aug/bias_before.webp",
+    after: "assets/aug/bias_after.webp",
   },
   noise: {
+    label: "noise",
     code: "tio.Noise()",
     desc: "Adds Gaussian noise to the image, simulating a lower signal-to-noise ratio.",
+    before: "assets/aug/noise_before.webp",
+    after: "assets/aug/noise_after.webp",
   },
   elastic: {
+    label: "elastic deformation",
     code: "tio.ElasticDeformation()",
     desc: "Warps the scan with a smooth random displacement field for realistic anatomical variation.",
+    before: "assets/aug/elastic_before.webp",
+    after: "assets/aug/elastic_after.webp",
   },
 };
 
-const augSlider = document.getElementById("aug-slider");
-const augBefore = document.getElementById("aug-before");
-const augAfter = document.getElementById("aug-after");
-const augRange = document.getElementById("aug-range");
-const augCode = document.getElementById("aug-code");
-const augDesc = document.getElementById("aug-desc");
-const augTabs = document.querySelectorAll(".aug-tab");
+const augSlider = /** @type {HTMLElement | null} */ (
+  document.getElementById("aug-slider")
+);
+const augBefore = /** @type {HTMLImageElement | null} */ (
+  document.getElementById("aug-before")
+);
+const augAfter = /** @type {HTMLImageElement | null} */ (
+  document.getElementById("aug-after")
+);
+const augRange = /** @type {HTMLInputElement | null} */ (
+  document.getElementById("aug-range")
+);
+const augCode = /** @type {HTMLElement | null} */ (
+  document.getElementById("aug-code")
+);
+const augDesc = /** @type {HTMLElement | null} */ (
+  document.getElementById("aug-desc")
+);
+const augTabs = /** @type {NodeListOf<HTMLButtonElement>} */ (
+  document.querySelectorAll(".aug-tab")
+);
 
-if (augSlider && augBefore && augAfter && augRange) {
+if (augSlider && augBefore && augAfter && augRange && augCode && augDesc) {
   const setPos = (value) => {
     const v = Math.max(0, Math.min(100, value));
     augSlider.style.setProperty("--pos", `${v}%`);
@@ -111,18 +176,23 @@ if (augSlider && augBefore && augAfter && augRange) {
     tab.addEventListener("click", () => {
       const key = tab.dataset.aug;
       const data = augData[key];
-      if (!data) return;
+      if (!data) {
+        console.warn(`Unknown augmentation key: ${key}`);
+        return;
+      }
 
       augTabs.forEach((t) => {
         const active = t === tab;
         t.classList.toggle("is-active", active);
-        t.setAttribute("aria-selected", active ? "true" : "false");
+        t.setAttribute("aria-pressed", active ? "true" : "false");
       });
 
       augCode.textContent = data.code;
       augDesc.textContent = data.desc;
-      augBefore.src = `assets/aug/${key}_before.webp`;
-      augAfter.src = `assets/aug/${key}_after.webp`;
+      augBefore.src = data.before;
+      augAfter.src = data.after;
+      augBefore.alt = `Original brain scan before ${data.label} augmentation`;
+      augAfter.alt = `Brain scan after ${data.label} augmentation`;
       setPos(50);
     });
   });

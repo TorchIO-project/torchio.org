@@ -41,7 +41,10 @@
     />
 
     <link rel="icon" href="assets/img/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="assets/img/torchio-logo.png" />
+    <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,11 +55,19 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
     <!-- Header -->
     <header class="site-header">
       <div class="container nav">
         <a class="brand" href="/">
-          <img src="assets/img/torchio-logo.png" alt="TorchIO logo" />
+          <img
+            src="assets/img/torchio-logo-64.png"
+            alt="TorchIO logo"
+            width="28"
+            height="28"
+            decoding="async"
+          />
           TorchIO
         </a>
         <nav class="nav-links">
@@ -75,8 +86,9 @@
       </div>
     </header>
 
-    <!-- Hero -->
-    <section class="hero">
+    <main id="content">
+      <!-- Hero -->
+      <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
           <h1>
@@ -101,6 +113,8 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
@@ -109,7 +123,12 @@
               class="btn btn-ghost"
               href="https://github.com/TorchIO-project/torchio"
             >
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+                focusable="false"
+              >
                 <path
                   d="M12 .5A12 12 0 0 0 0 12.6a12 12 0 0 0 8.2 11.5c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.8 0-.7 0-.7 1.2.1 1.9 1.2 1.9 1.2 1.1 1.9 2.8 1.4 3.5 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.4-5.5-6 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 5 18.3 5.3 18.3 5.3c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 24 12.6 12 12 0 0 0 12 .5Z"
                 />
@@ -135,12 +154,15 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <rect x="9" y="9" width="13" height="13" rx="2" />
                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
               </svg>
             </button>
           </div>
+          <p class="visually-hidden" id="copy-status" aria-live="polite"></p>
         </div>
 
         <!-- Hero code card -->
@@ -175,10 +197,10 @@ batch = tio.SubjectsBatch.<span class="tok-f">from_subjects</span>(subjects).to(
 augmented = <span class="tok-f">transform</span>(batch)</code></pre>
         </div>
       </div>
-    </section>
+      </section>
 
     <!-- Ecosystem strip -->
-    <div class="strip">
+      <div class="strip">
       <div class="container">
         <span class="label">Plays well with</span>
         <div class="names">
@@ -188,12 +210,12 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
           <a href="https://simpleitk.org">SimpleITK</a>
           <a href="https://nipy.org/nibabel/">NiBabel</a>
           <a href="https://zarr.dev">Zarr</a>
-        </div>
+          </div>
       </div>
     </div>
 
     <!-- Features -->
-    <section class="section" id="features">
+      <section class="section" id="features">
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">Why TorchIO</span>
@@ -214,6 +236,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <path d="M4 4h16v16H4z" />
                 <path d="M4 9h16M9 4v16" />
@@ -235,6 +259,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <rect x="3" y="3" width="7" height="7" rx="1" />
                 <rect x="14" y="3" width="7" height="7" rx="1" />
@@ -258,6 +284,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <path d="M12 2v20M2 12h20" />
                 <circle cx="12" cy="12" r="9" />
@@ -279,6 +307,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <path d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z" />
                 <path d="M12 6v6l4 2" />
@@ -300,6 +330,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <path d="m9 12 2 2 4-4" />
                 <path d="M12 3 4 6v6c0 5 3.5 7.5 8 9 4.5-1.5 8-4 8-9V6l-8-3Z" />
@@ -321,6 +353,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" />
               </svg>
@@ -333,10 +367,10 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
           </article>
         </div>
       </div>
-    </section>
+      </section>
 
     <!-- Augmentations showcase -->
-    <section class="section" id="augmentations">
+      <section class="section" id="augmentations">
       <div class="container">
         <div class="section-head reveal">
           <span class="eyebrow">Augmentations</span>
@@ -355,12 +389,18 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
               id="aug-after"
               src="assets/aug/motion_after.webp"
               alt="Brain scan with the augmentation applied"
+              width="1200"
+              height="602"
+              decoding="async"
             />
             <img
               class="aug-img aug-before"
               id="aug-before"
               src="assets/aug/motion_before.webp"
               alt="Original brain scan"
+              width="1200"
+              height="602"
+              decoding="async"
             />
             <span class="aug-tag aug-tag--before">Original</span>
             <span class="aug-tag aug-tag--after">Augmented</span>
@@ -373,6 +413,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
                 >
                   <path d="M9 7l-5 5 5 5M15 7l5 5-5 5" />
                 </svg>
@@ -390,12 +432,11 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
           </div>
 
           <div class="aug-panel">
-            <div class="aug-tabs" role="tablist" aria-label="MRI augmentations">
+            <div class="aug-tabs" aria-label="MRI augmentations">
               <button
                 class="aug-tab is-active"
                 type="button"
-                role="tab"
-                aria-selected="true"
+                aria-pressed="true"
                 data-aug="motion"
               >
                 Motion
@@ -403,8 +444,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
               <button
                 class="aug-tab"
                 type="button"
-                role="tab"
-                aria-selected="false"
+                aria-pressed="false"
                 data-aug="ghosting"
               >
                 Ghosting
@@ -412,8 +452,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
               <button
                 class="aug-tab"
                 type="button"
-                role="tab"
-                aria-selected="false"
+                aria-pressed="false"
                 data-aug="spike"
               >
                 Spike
@@ -421,8 +460,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
               <button
                 class="aug-tab"
                 type="button"
-                role="tab"
-                aria-selected="false"
+                aria-pressed="false"
                 data-aug="bias"
               >
                 Bias field
@@ -430,8 +468,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
               <button
                 class="aug-tab"
                 type="button"
-                role="tab"
-                aria-selected="false"
+                aria-pressed="false"
                 data-aug="noise"
               >
                 Noise
@@ -439,8 +476,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
               <button
                 class="aug-tab"
                 type="button"
-                role="tab"
-                aria-selected="false"
+                aria-pressed="false"
                 data-aug="elastic"
               >
                 Elastic
@@ -448,7 +484,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
             </div>
 
             <code class="aug-code" id="aug-code">tio.Motion()</code>
-            <p class="aug-desc" id="aug-desc">
+            <p class="aug-desc" id="aug-desc" aria-live="polite">
               Simulates patient motion during acquisition, adding blurring and
               ghosting from inconsistent k-space lines.
             </p>
@@ -461,6 +497,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
@@ -468,10 +506,10 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
           </div>
         </div>
       </div>
-    </section>
+      </section>
 
     <!-- Example callout -->
-    <section class="section" id="example" style="padding-top: 0">
+      <section class="section" id="example" style="padding-top: 0">
       <div class="container">
         <div class="cta reveal">
           <span class="eyebrow">Pipeline</span>
@@ -492,6 +530,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
                 >
                   <path d="m12 2 9 5-9 5-9-5 9-5Z" />
                   <path d="m3 12 9 5 9-5" />
@@ -510,6 +550,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
@@ -525,6 +567,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
                 >
                   <path
                     d="M13 3l2.2 5.8L21 11l-5.8 2.2L13 19l-2.2-5.8L5 11l5.8-2.2L13 3Z"
@@ -549,6 +593,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
+                focusable="false"
               >
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
@@ -564,6 +610,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
                 >
                   <rect x="4" y="4" width="16" height="16" rx="2" />
                   <rect x="9" y="9" width="6" height="6" />
@@ -591,7 +639,8 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </main>
 
     <!-- Footer -->
     <footer class="site-footer">
@@ -599,7 +648,14 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
         <div class="footer-grid">
           <div class="footer-brand">
             <a class="brand" href="/">
-              <img src="assets/img/torchio-logo.png" alt="TorchIO logo" />
+              <img
+                src="assets/img/torchio-logo-64.png"
+                alt="TorchIO logo"
+                width="28"
+                height="28"
+                loading="lazy"
+                decoding="async"
+              />
               TorchIO
             </a>
             <p>
@@ -631,7 +687,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
               >License</a
             >
             <a
-              href="https://github.com/TorchIO-project/torchio/blob/main/CONTRIBUTING.rst"
+              href="https://github.com/TorchIO-project/torchio/blob/main/CONTRIBUTING.md"
               >Contributing</a
             >
           </div>
