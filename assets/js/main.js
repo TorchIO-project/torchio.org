@@ -5,7 +5,7 @@
 // Footer year
 /** @type {HTMLElement | null} */
 const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
 // Copy-to-clipboard for the install command
 /** @type {HTMLElement | null} */

@@ -198,7 +198,11 @@ def check_external_links(urls: set[str]) -> list[str]:
                 status = response.status
         except urllib.error.HTTPError as error:
             if error.code in {403, 405}:
-                status = _check_external_link_with_get(opener, url)
+                try:
+                    status = _check_external_link_with_get(opener, url)
+                except urllib.error.URLError as retry_error:
+                    failures.append(f"{url}: {retry_error.reason}")
+                    continue
             else:
                 failures.append(f"{url}: HTTP {error.code}")
                 continue
