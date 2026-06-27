@@ -8,8 +8,18 @@
     <meta name="theme-color" content="#812ce5" />
     <link rel="icon" href="assets/img/favicon.ico" sizes="any" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/hanken-grotesk-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <style>
@@ -21,13 +31,11 @@
         gap: 18px;
       }
       .nf .code {
+        font-family: var(--font-display);
         font-weight: 800;
         font-size: clamp(4rem, 18vw, 9rem);
         line-height: 1;
-        background: linear-gradient(120deg, var(--brand), var(--brand-soft));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+        color: var(--brand);
       }
       .nf p {
         color: var(--text-muted);
