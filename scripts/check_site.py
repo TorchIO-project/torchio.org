@@ -179,6 +179,29 @@ def check_asset_budget() -> list[str]:
     return failures
 
 
+def check_seo_files() -> list[str]:
+    """Check crawl-discovery files for the canonical site URL."""
+    failures: list[str] = []
+    robots_path = ROOT / "robots.txt"
+    sitemap_path = ROOT / "sitemap.xml"
+
+    if not robots_path.exists():
+        failures.append("robots.txt: file is missing")
+    elif "Sitemap: https://torchio.org/sitemap.xml" not in robots_path.read_text(
+        encoding="utf-8"
+    ):
+        failures.append("robots.txt: sitemap directive is missing or incorrect")
+
+    if not sitemap_path.exists():
+        failures.append("sitemap.xml: file is missing")
+    elif "<loc>https://torchio.org/</loc>" not in sitemap_path.read_text(
+        encoding="utf-8"
+    ):
+        failures.append("sitemap.xml: canonical homepage URL is missing")
+
+    return failures
+
+
 def check_external_links(urls: set[str]) -> list[str]:
     """Check external URLs collected from the HTML files.
 
@@ -243,6 +266,7 @@ def run_checks(check_external: bool) -> None:
     failures.extend(check_html_structure(parsers))
     failures.extend(check_css())
     failures.extend(check_asset_budget())
+    failures.extend(check_seo_files())
 
     if check_external:
         urls = set().union(*(parser.external_urls for parser in parsers))

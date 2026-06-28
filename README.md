@@ -18,6 +18,8 @@ introduces the project and links out to the documentation at
 ├── index.html              # the landing page
 ├── 404.html                # custom not-found page
 ├── CNAME                    # custom domain (torchio.org)
+├── robots.txt               # crawler policy and sitemap pointer
+├── sitemap.xml              # canonical URLs for search engines
 ├── assets/
 │   ├── css/styles.css       # styles + light/dark theme
 │   ├── js/main.js           # copy button, scroll reveal, footer year
