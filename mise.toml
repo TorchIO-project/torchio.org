@@ -10,6 +10,10 @@ PORT = "{{ env.PORT | default(value='8000') }}"
 description = "Serve the site locally with live reload"
 run = "uvx --from livereload livereload --host \"$HOST\" --port \"$PORT\" -o 1 -t '{{config_root}}' '{{config_root}}'"
 
+[tasks.build]
+description = "Stage the static site into _site"
+run = "mkdir -p _site && cp -R index.html 404.html CNAME .nojekyll robots.txt sitemap.xml assets _site/"
+
 [tasks.check]
 description = "Run local static site checks"
 run = "uv run python scripts/check_site.py"

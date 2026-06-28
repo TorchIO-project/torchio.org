@@ -1,0 +1,72 @@
+# Upload branch previews to Smokeshow and add a sticky comment to matching PRs.
+#
+# This uses a push trigger, like the main TorchIO docs workflow, so repository
+# secrets are available for same-repository PR branches. The workflow looks up
+# the PR for the pushed branch before writing the sticky comment.
+
+name: Preview site
+
+on:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install mise-en-place
+        uses: jdx/mise-action@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build static site
+        run: mise run build
+
+      - name: Upload site to Smokeshow
+        id: smokeshow
+        env:
+          SMOKESHOW_AUTH_KEY: ${{ secrets.SMOKESHOW_AUTH_KEY || env.SMOKESHOW_AUTH_KEY }}
+          SMOKESHOW_GITHUB_STATUS_DESCRIPTION: Site preview
+          SMOKESHOW_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SMOKESHOW_GITHUB_PR_HEAD_SHA: ${{ github.sha }}
+        run: |
+          uvx smokeshow upload ./_site 2>&1 | tee /tmp/smokeshow_output.txt
+          URL=$(grep -oE 'https://smokeshow[^ ]+' /tmp/smokeshow_output.txt | tail -1 | sed 's/,$//')
+          echo "preview_url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Find PR number
+        if: steps.smokeshow.outputs.preview_url != ''
+        id: find-pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --head "${{ github.ref_name }}" --json number --jq '.[0].number' 2>/dev/null || echo "")
+          echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+
+      - name: Comment PR with preview URL
+        if: steps.smokeshow.outputs.preview_url != '' && steps.find-pr.outputs.pr_number != ''
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: site-preview
+          number: ${{ steps.find-pr.outputs.pr_number }}
+          message: |
+            ## 🌐 Site Preview
+
+            Preview of the landing page for this PR:
+
+            🔗 **${{ steps.smokeshow.outputs.preview_url }}**
+
+            <sub>Built from ${{ github.sha }}</sub>
