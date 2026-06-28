@@ -31,7 +31,7 @@ jobs:
       - name: Prepare Pages artifact
         run: |
           mkdir -p _site
-          cp -R index.html 404.html CNAME .nojekyll assets _site/
+          cp -R index.html 404.html CNAME .nojekyll robots.txt sitemap.xml assets _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
