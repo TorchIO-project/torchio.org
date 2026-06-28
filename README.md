@@ -57,6 +57,12 @@ mise run check
 mise run check:links
 ```
 
+Stage the public site artifact locally:
+
+```bash
+mise run build
+```
+
 ## License
 
 Apache-2.0, matching the TorchIO library.
