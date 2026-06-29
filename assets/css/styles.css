@@ -30,8 +30,11 @@
 :root {
   --brand: #812ce5; /* exact TorchIO logo purple */
   /* All purples below derive from the logo purple above. */
+  --brand-strong: #6c25c0; /* fallback for browsers without color-mix() */
   --brand-strong: color-mix(in srgb, var(--brand) 84%, #000);
+  --brand-soft: #ae78ee;
   --brand-soft: color-mix(in srgb, var(--brand) 64%, #fff);
+  --brand-tint: rgba(129, 44, 229, 0.1);
   --brand-tint: color-mix(in srgb, var(--brand) 10%, transparent);
   --ink: #262626;
   --gray: #bbbbbb;
@@ -60,9 +63,12 @@
 @media (prefers-color-scheme: dark) {
   :root {
     /* Lighten the logo purple for legibility on dark surfaces (same hue). */
+    --brand: #a161ec; /* fallback for browsers without color-mix() */
     --brand: color-mix(in srgb, #812ce5 75%, #fff);
     --brand-strong: #812ce5;
+    --brand-soft: #ba8bf1;
     --brand-soft: color-mix(in srgb, #812ce5 55%, #fff);
+    --brand-tint: rgba(129, 44, 229, 0.22);
     --brand-tint: color-mix(in srgb, #812ce5 22%, transparent);
 
     --bg: #141118;
@@ -437,7 +443,6 @@ p {
 
 .tok-c {
   color: var(--text-muted);
-  font-style: italic;
 }
 .tok-k {
   color: var(--brand);
