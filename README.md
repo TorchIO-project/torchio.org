@@ -42,7 +42,7 @@ stylesheet is derived from it with `color-mix`.
 | Gray   | `#BBBBBB` |
 
 Typography pairs a distinctive display face with a readable body face, both
-self-hosted from `assets/fonts/` as variable `woff2` (no third-party request):
+self-hosted from `assets/fonts/` as variable `woff2` (no third-party requests):
 
 | Role    | Face                 | License |
 | ------- | -------------------- | ------- |
