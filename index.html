@@ -81,11 +81,26 @@
       document.documentElement.classList.add("js");
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/hanken-grotesk-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/jetbrains-mono-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
@@ -203,8 +218,7 @@
         <!-- Hero code card -->
         <div class="code-card reveal">
           <div class="code-bar">
-            <span class="dotmac r"></span><span class="dotmac y"></span
-            ><span class="dotmac g"></span>
+            <span class="code-file">quickstart.py</span>
           </div>
           <pre><code><span class="tok-k">import</span> torchio <span class="tok-k">as</span> tio
 
@@ -724,7 +738,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
           </div>
 
           <div class="footer-col">
-            <h4>Docs</h4>
+            <h3>Docs</h3>
             <a href="https://docs.torchio.org/dev/get-started/installation/"
               >Installation</a
             >
@@ -738,7 +752,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
           </div>
 
           <div class="footer-col">
-            <h4>Project</h4>
+            <h3>Project</h3>
             <a href="https://github.com/TorchIO-project/torchio">GitHub</a>
             <a href="https://pypi.org/project/torchio/">PyPI</a>
             <a
@@ -752,7 +766,7 @@ augmented = <span class="tok-f">transform</span>(batch)</code></pre>
           </div>
 
           <div class="footer-col">
-            <h4>Community</h4>
+            <h3>Community</h3>
             <a href="https://github.com/TorchIO-project/torchio/discussions"
               >Discussions</a
             >
